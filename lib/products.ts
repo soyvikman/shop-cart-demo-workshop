@@ -44,3 +44,7 @@ export const products: Product[] = [
     description: 'Webcam 1080p para videollamadas',
   },
 ];
+
+export function getProductById(id: string) {
+  return products.find((p) => p.id === id);
+}
