@@ -16,6 +16,11 @@ const initialState: CartState = {
   items: [],
 };
 
+// Garantiza en tiempo de compilación que todos los tipos de acción están manejados
+function assertNever(action: never): never {
+  throw new Error(`Acción no manejada en cartReducer: ${JSON.stringify(action)}`);
+}
+
 function cartReducer(state: CartState, action: CartAction): CartState {
   switch (action.type) {
     case 'ADD_ITEM': {
@@ -56,7 +61,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         ),
       };
     default:
-      return state;
+      return assertNever(action);
   }
 }
 
