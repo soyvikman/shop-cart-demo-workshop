@@ -3,6 +3,7 @@
 import { CartItem as CartItemType } from '@/types';
 import { useCart } from '@/context/CartContext';
 
+// TODO: Agregar funcionalidad X
 interface CartItemProps {
   item: CartItemType;
 }
