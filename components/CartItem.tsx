@@ -19,10 +19,11 @@ export function CartItem({ item }: CartItemProps) {
       />
       <div className="flex-1">
         <h3 className="font-semibold text-gray-900">{item.name}</h3>
-        <p className="text-gray-600">${item.price}</p>
+        <p className="text-gray-600">${item.price.toFixed(2)}</p>
       </div>
       <div className="flex items-center gap-2">
         <button
+          aria-label={`Reducir cantidad de ${item.name}`}
           onClick={() => dispatch({ type: 'UPDATE_QUANTITY', payload: { id: item.id, quantity: item.quantity - 1 } })}
           className="w-8 h-8 rounded-md border border-gray-300 flex items-center justify-center hover:bg-gray-100"
         >
@@ -30,6 +31,7 @@ export function CartItem({ item }: CartItemProps) {
         </button>
         <span className="w-8 text-center">{item.quantity}</span>
         <button
+          aria-label={`Aumentar cantidad de ${item.name}`}
           onClick={() => dispatch({ type: 'UPDATE_QUANTITY', payload: { id: item.id, quantity: item.quantity + 1 } })}
           className="w-8 h-8 rounded-md border border-gray-300 flex items-center justify-center hover:bg-gray-100"
         >
@@ -37,6 +39,7 @@ export function CartItem({ item }: CartItemProps) {
         </button>
       </div>
       <button
+        aria-label={`Eliminar ${item.name} del carrito`}
         onClick={() => dispatch({ type: 'REMOVE_ITEM', payload: item.id })}
         className="text-red-500 hover:text-red-700 ml-2"
       >
