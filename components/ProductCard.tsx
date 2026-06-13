@@ -2,6 +2,7 @@
 
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
+import Link from 'next/link';
 
 interface ProductCardProps {
   product: Product;
@@ -18,7 +19,7 @@ export function ProductCard({ product }: ProductCardProps) {
         className="w-full h-48 object-cover"
       />
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
+        <Link href={`/product/${product.id}`} className="text-lg font-semibold text-gray-900 hover:underline">{product.name}</Link>
         <p className="text-gray-600 text-sm mt-1">{product.description}</p>
         <div className="flex items-center justify-between mt-4">
           <span className="text-xl font-bold text-gray-900">${product.price}</span>
