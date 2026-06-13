@@ -87,3 +87,4 @@ Aprender a escribir, estructurar y desplegar **skills** que permitan a los agent
 ---
 
 **Hecho con ❤️ para GDG Arequipa — Build with AI**
+<!-- TODO: Agregar persistencia del carrito en localStorage -->
