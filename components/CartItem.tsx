@@ -7,6 +7,7 @@ interface CartItemProps {
   item: CartItemType;
 }
 
+// PRUEBA MCP GITHUB MCP 
 export function CartItem({ item }: CartItemProps) {
   const { dispatch } = useCart();
 
