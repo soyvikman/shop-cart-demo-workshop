@@ -13,4 +13,3 @@ export default function Home() {
     </div>
   );
 }
-// TODO: Agregar funcionalidad en page X
