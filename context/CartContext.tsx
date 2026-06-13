@@ -10,7 +10,8 @@ interface CartState {
 type CartAction =
   | { type: 'ADD_ITEM'; payload: Product }
   | { type: 'REMOVE_ITEM'; payload: string }
-  | { type: 'UPDATE_QUANTITY'; payload: { id: string; quantity: number } };
+  | { type: 'UPDATE_QUANTITY'; payload: { id: string; quantity: number } }
+  | { type: 'CLEAR_CART' };
 
 const initialState: CartState = {
   items: [],
@@ -54,6 +55,11 @@ function cartReducer(state: CartState, action: CartAction): CartState {
             ? { ...item, quantity: action.payload.quantity }
             : item
         ),
+      };
+    case 'CLEAR_CART':
+      return {
+        ...state,
+        items: [],
       };
     default:
       return state;
