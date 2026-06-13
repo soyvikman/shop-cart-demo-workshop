@@ -21,7 +21,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
         <p className="text-gray-600 text-sm mt-1">{product.description}</p>
         <div className="flex items-center justify-between mt-4">
-          <span className="text-xl font-bold text-gray-900">${product.price}</span>
+          <span className="text-2xl font-extrabold text-gray-900">${product.price}</span>
           <button
             onClick={() => dispatch({ type: 'ADD_ITEM', payload: product })}
             className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
