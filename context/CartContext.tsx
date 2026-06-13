@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, ReactNode, useEffect, useRef } from 'react';
 import { CartItem, Product } from '@/types';
 
 interface CartState {
@@ -10,7 +10,9 @@ interface CartState {
 type CartAction =
   | { type: 'ADD_ITEM'; payload: Product }
   | { type: 'REMOVE_ITEM'; payload: string }
-  | { type: 'UPDATE_QUANTITY'; payload: { id: string; quantity: number } };
+  | { type: 'UPDATE_QUANTITY'; payload: { id: string; quantity: number } }
+  | { type: 'CLEAR_CART' }
+  | { type: 'SET_CART'; payload: CartItem[] };
 
 const initialState: CartState = {
   items: [],
@@ -55,6 +57,16 @@ function cartReducer(state: CartState, action: CartAction): CartState {
             : item
         ),
       };
+    case 'CLEAR_CART':
+      return {
+        ...state,
+        items: [],
+      };
+    case 'SET_CART':
+      return {
+        ...state,
+        items: action.payload,
+      };
     default:
       return state;
   }
@@ -67,6 +79,31 @@ const CartContext = createContext<{
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, initialState);
+  const isLoaded = useRef(false);
+
+  // Cargar el carrito desde localStorage al montar
+  useEffect(() => {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      try {
+        const parsedCart = JSON.parse(savedCart);
+        if (Array.isArray(parsedCart)) {
+          dispatch({ type: 'SET_CART', payload: parsedCart });
+        }
+      } catch (error) {
+        console.error('Error cargando el carrito desde localStorage:', error);
+      }
+    }
+    isLoaded.current = true;
+  }, []);
+
+  // Guardar en localStorage solo después de que se haya cargado el estado inicial
+  useEffect(() => {
+    if (isLoaded.current) {
+      localStorage.setItem('cart', JSON.stringify(state.items));
+    }
+  }, [state.items]);
+
   return (
     <CartContext.Provider value={{ state, dispatch }}>
       {children}
